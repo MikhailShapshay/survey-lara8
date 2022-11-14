@@ -17,6 +17,7 @@ class Question extends Model
     protected $fillable = [
         'survey_id',
         'question',
+        'next_question',
     ];
 
     /**
