@@ -1,65 +1,67 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
-
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+<p align="center"><h1>Survey</h1></p>
+<p align="center"><h2>Laravel 8, PostgreSql</h2></p>
+<p align="justify"><strong>Уствновка</strong></p>
+<p align="justify">
+composer install<br/>
+npm install<br/>
+npm run prod<br/>
+php artisan migrate --seed
 </p>
+<p align="justify"><strong>Тестирование:</strong></p>
+<p align="justify">Отправьте POST-запрос с параметром id текущего ответа на API:<br/>
+http://survey.local/api/answer</p>
+<p align="justify">В ответ сервер высылает JSON следущего вопроса с ответами:<br>
+<pre>
+{
+    "id": 3,
+    "survey_id": 1,
+    "question": "Одичаешь, — знаете, будешь все время игры. Выходя с фигуры, он ударял по столу вырывались выражения: «А! была не была, не с тем чувствуя, что держать Ноздрева было бесполезно, выпустил его руки. В.",
+    "next_question": 5,
+    "created_at": "2022-11-14T09:32:49.000000Z",
+    "updated_at": "2022-11-14T09:32:49.000000Z",
+    "survey": {
+        "id": 1,
+        "title": "Тут начал он слегка верхушек какой-нибудь науки.",
+        "created_at": "2022-11-14T09:32:49.000000Z",
+        "updated_at": "2022-11-14T09:32:49.000000Z"
+    },
+    "answers": [
+        {
+            "id": 7,
+            "answer": "Нужно желать — побольше таких людей. — Как с того времени много у вас умерло крестьян? — А может.",
+            "question_id": 3,
+            "next_question": null,
+            "created_at": "2022-11-14T09:32:49.000000Z",
+            "updated_at": "2022-11-14T09:32:49.000000Z"
+        },
+        {
+            "id": 8,
+            "answer": "Вы рассмотрите: вот, например, каретник Михеев! ведь — больше как-нибудь стоят. — Послушайте.",
+            "question_id": 3,
+            "next_question": null,
+            "created_at": "2022-11-14T09:32:49.000000Z",
+            "updated_at": "2022-11-14T09:32:49.000000Z"
+        },
+        {
+            "id": 9,
+            "answer": "Обед давно уже умерли, остался один неосязаемый чувствами звук. Впрочем, — чтобы нельзя было.",
+            "question_id": 3,
+            "next_question": null,
+            "created_at": "2022-11-14T09:32:49.000000Z",
+            "updated_at": "2022-11-14T09:32:49.000000Z"
+        }
+    ]
+}
+</pre></p>
+<p align="justify"><strong>Задача:</strong></p>
+<p align="justify">На свежеустановленном Laravel, на уровне идеи описать примерную архитектуру для вышеописанной логики.</p> 
+<p align="justify">Проверяться будет архитектура, паттерны проектирования, стиль кода.</p>
+<p align="justify">Работоспособность проверяться не будет.</p>
+<p align="justify">Важно правильно понять Тз красным подчеркнуты важные моменты. </p>
+<p align="justify"><strong>Логика и термины:</strong></p>
+<p align="justify">Survey (hasMany Question)<br/>
+Question (belongsTo Survey, hasMany Answer)<br/>
+Answer (belongsTo Question)</p>
+<p align="justify">Респондент (Respondent) в чате проходит опрос (Survey), отвечая на его вопросы (Question). <strong style="color: red;">Каждый вопрос или ответ</strong> содержит поле <strong style="color: red;">next_question_id</strong> - это id следующего вопроса (<strong style="color: red;">nullable</strong>).</p>
+<p align="justify">Каждый ответ респондента (Answer) методом POST приходит на контроллер (WebhookController@input). В теле ответа содержится id ответа (Answer).</p>
 
-## About Laravel
-
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-"# Survey for test" 
